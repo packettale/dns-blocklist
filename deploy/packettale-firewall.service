@@ -1,0 +1,12 @@
+[Unit]
+Description=packettale inbound firewall (Cloudflare Tunnel, SSH administration)
+After=network-pre.target netfilter-persistent.service
+Before=dns-ip-blocklist.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /opt/dns-ip-blocklist/deploy/packettale-firewall.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

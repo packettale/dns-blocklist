@@ -1,0 +1,2 @@
+const protection=new Set(['ads','analytics','tracking','telemetry','mixed','security-threats','malware','phishing','fraud','cryptomining','fingerprinting','email-tracking','session-replay','cname-tracking','cname-ads','suspicious','compromised-ips','botnet-c2','popup-ads','game-console-ads','smart-tv','stalkerware']);
+export function categoryGroup(name){return protection.has(name)||name.startsWith('trackers-')||name.startsWith('regional-')?'protection':'optional';}

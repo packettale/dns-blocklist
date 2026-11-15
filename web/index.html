@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="packettale dns-blocklist: categorized domain and IP blocklists for ads, trackers, malware and optional internet services. Plain TXT feeds, source counts and overlap statistics.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#000000">
+  <title>packettale dns-blocklist — Domain &amp; IP Filtering Lists</title>
+  <link rel="canonical" href="https://blocklist.packettale.com/">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="packettale-icon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="packettale dns-blocklist">
+  <meta property="og:title" content="packettale dns-blocklist">
+  <meta property="og:description" content="Categorized domain and IP blocklists. Plain TXT feeds, source counts and overlap statistics.">
+  <meta property="og:url" content="https://blocklist.packettale.com/">
+  <meta property="og:image" content="https://blocklist.packettale.com/packettale-logo.png">
+  <meta property="og:image:alt" content="packettale">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="packettale dns-blocklist">
+  <meta name="twitter:description" content="Categorized domain and IP blocklists, TXT feeds and source statistics.">
+  <meta name="twitter:image" content="https://blocklist.packettale.com/packettale-logo.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"packettale dns-blocklist","url":"https://blocklist.packettale.com/","description":"Categorized domain and IP filtering lists with plain TXT feeds and upstream statistics.","publisher":{"@type":"Organization","name":"packettale","logo":"https://blocklist.packettale.com/packettale-logo.png"}}</script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="alternate" type="text/markdown" href="index.md" title="Markdown">
+  <link rel="describedby" href="llms.txt">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<main>
+  <header class="masthead">
+    <h1 class="brand"><img src="packettale-icon.svg" alt="" width="38" height="38">packettale dns-blocklist</h1>
+    <a class="source-nav" href="#statistics">Sources <span id="source-count"></span></a>
+  </header>
+  <div class="overview" aria-label="Snapshot totals">
+    <div><strong id="domain-total">—</strong><span>total domains</span></div>
+    <div><strong id="ip-total">—</strong><span>total IPs</span></div>
+    <div class="snapshot">Updated <time id="updated"></time></div>
+  </div>
+  <div id="error" class="notice" role="alert" hidden></div>
+  <section id="lists" aria-label="Filtering lists">
+    <noscript><p><a href="feeds.md">Category feeds</a> · <a href="index.md">Totals</a> · <a href="sources.md">Sources</a></p></noscript>
+    <div class="toolbar">
+      <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" id="category-search" placeholder="Search categories" aria-label="Search categories" autocomplete="off"><span id="search-count"></span></label>
+      <div class="format-switch" role="group" aria-label="Feed format">
+        <button type="button" data-format="domains" aria-pressed="true">Domains</button>
+        <button type="button" data-format="ips" aria-pressed="false">IPs</button>
+        <button type="button" data-format="both" aria-pressed="false">Domains + IPs</button>
+      </div>
+    </div>
+    <section class="feed-panel catalog-panel" aria-labelledby="catalog-title">
+      <div class="catalog-heading"><h2 id="catalog-title">Categories</h2><span id="catalog-count" class="category-count"></span><button type="button" class="expand-button" id="expand-categories">Expand all</button></div>
+      <div id="category-catalog" class="category-groups"></div>
+      <div id="catalog-empty" class="empty" hidden>0 matching categories</div>
+    </section>
+  </section>
+  <details id="statistics" class="statistics">
+    <summary><span>Sources &amp; overlaps</span><span id="statistics-source-count" class="category-count"></span></summary>
+    <div class="statistics-content">
+      <div class="overlap-totals"><div><strong id="shared-total">—</strong><span>entries in multiple feeds</span></div><div><strong id="individual-total">—</strong><span>entries in one feed</span></div></div>
+      <div class="statistics-toolbar"><label for="category-scope">Category</label><select id="category-scope"><option value="all">All categories</option></select></div>
+      <div class="table-wrap"><table class="sources-table">
+        <thead><tr><th>Source</th><th>Domains</th><th>IPs</th><th>Shared domains</th><th>Shared IPs</th><th>Unique domains</th><th>Unique IPs</th><th>Updated (UTC)</th><th>Feed</th></tr></thead>
+        <tbody id="sources-body"></tbody>
+      </table></div>
+      <div class="comparison"><label>Compare <select id="compare-a" aria-label="First source"></select></label><label>with <select id="compare-b" aria-label="Second source"></select></label></div>
+      <p class="pair-result"><strong id="pair-domains">—</strong> matching domains <span>·</span> <strong id="pair-ips">—</strong> matching IPs</p>
+    </div>
+  </details>
+  <footer><a href="https://github.com/packettale/dns-blocklist">GitHub</a><a href="index.md">Markdown</a><a href="sources.json">Source data</a><a href="NOTICE.md">Attribution &amp; licenses</a></footer>
+</main>
+<div id="copy-status" class="copy-status" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

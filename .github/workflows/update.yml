@@ -1,0 +1,74 @@
+name: Publish smaller catalog to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: feed-publication
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Run tests
+        run: node --test
+      - name: Restore previous public snapshot
+        run: node src/publish.mjs restore
+      - name: Restore upstream caches
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache
+          key: upstream-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: upstream-v1-
+      - name: Fetch and consolidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URLHAUS_AUTH_KEY: ${{ secrets.URLHAUS_AUTH_KEY }}
+        run: node src/update.mjs
+      - name: Validate every downloadable feed
+        run: node src/validate.mjs dist
+      - name: Check GitHub hosting capacity
+        run: node src/check-hosting.mjs dist
+      - name: Save upstream caches
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache
+          key: upstream-v1-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Publish permanent raw feeds
+        id: publish
+        run: node src/publish.mjs publish
+      - name: Configure Pages
+        if: steps.publish.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+      - name: Package static feeds and dashboard
+        if: steps.publish.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy public dashboard and downloads
+        if: steps.publish.outputs.changed == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Save public snapshot summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-summary-${{ github.run_id }}
+          path: .cache/public-check.json
+          if-no-files-found: ignore
+          retention-days: 14

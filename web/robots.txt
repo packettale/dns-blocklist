@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://blocklist.packettale.com/sitemap.xml

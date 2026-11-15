@@ -1,0 +1,3 @@
+# Your exceptions, one domain or IP per line. Comments are supported here only.
+# example.org allows that domain and its children.
+# =example.org allows that exact name only.

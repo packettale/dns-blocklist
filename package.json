@@ -1,0 +1,13 @@
+{
+  "name": "dns-blocklist",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Categorized domain and IP blocklists with plain TXT feeds and upstream overlap statistics",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "update": "node src/update.mjs",
+    "test": "node --test",
+    "audit": "node src/audit.mjs"
+  }
+}
