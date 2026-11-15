@@ -4,7 +4,7 @@ import {resolve,sep,extname} from 'node:path';
 import {documentationFiles} from './public-docs.mjs';
 import {FeedRateLimit,clientAddress,isBrowserNavigation} from './feed-rate-limit.mjs';
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8','.md':'text/markdown; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.xml':'application/xml; charset=utf-8'};
-const assets=new Set(['index.html','app.js','style.css','stats.json','sources.json','NOTICE.md','packettale-icon.svg','packettale-logo.png','favicon.ico','robots.txt','sitemap.xml',...Object.values(documentationFiles)]);
+const assets=new Set(['index.html','app.js','style.css','stats.json','sources.json','NOTICE.md','packettale-icon.svg','packettale-logo.png','packettale-wordmark.svg','favicon.ico','robots.txt','sitemap.xml',...Object.values(documentationFiles)]);
 export function createFeedServer({getSnapshot,publicHostname='',requireHttps=false,feedRefreshSeconds=0}){
   if(publicHostname&&!/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/.test(publicHostname))throw Error('Invalid public hostname');
   const limiter=feedRefreshSeconds?new FeedRateLimit({seconds:feedRefreshSeconds}):null;
